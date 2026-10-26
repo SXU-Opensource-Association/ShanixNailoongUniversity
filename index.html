@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山西没有奶龙</title>
+    <style>
+        /* =========================================
+           1. CSS 变量与主题定义 (核心升级)
+           ========================================= */
+        :root {
+            /* 亮色模式默认颜色 */
+            --bg-body: #f5f6f8;
+            --bg-card: #ffffff;
+            --text-main: #333333;
+            --text-sub: #888888;
+            --border-color: #eaeaea;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.08);
+            --logo-bg: #f0f0f0;
+            --logo-border: #eaeaea;
+            --logo-text: #999;
+        }
+
+        /* 暗色模式颜色 (通过 HTML 标签的 data-theme="dark" 触发) */
+        [data-theme="dark"] {
+            --bg-body: #1a1a1a;
+            --bg-card: #222222;
+            --text-main: #e0e0e0;
+            --text-sub: #a0a0a0;
+            --border-color: #333333;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.5);
+            --logo-bg: #333333;
+            --logo-border: #444444;
+            --logo-text: #999;
+        }
+
+        /* =========================================
+           2. 基础样式与布局 (全局重置)
+           ========================================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: "MiSans R", Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 40px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* 头部描述区 */
+        .header {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-info h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .header-info p {
+            font-size: 15px;
+            color: var(--text-sub);
+        }
+
+        /* 切换模式按钮样式 */
+        .theme-toggle {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 0px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+        .theme-toggle:hover {
+            opacity: 0.8;
+        }
+
+        /* 网格布局区 (响应式 3列) */
+        .grid-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        /* 卡片样式 */
+        .card {
+            width: calc(33.333% - 16px);
+            min-width: 300px;
+            height: 380px;
+            background-color: var(--bg-card);
+            border-radius: 0px;
+            border: 1px solid var(--border-color);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            text-decoration: none; /* 去除链接下划线 */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: var(--text-main);
+        }
+
+        .card-logo {
+            width: 110px;
+            height: 110px;
+            border-radius: 12.46%;
+            background-color: var(--logo-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--logo-text);
+            font-size: 14px;
+            margin-bottom: 30px;
+            border: 1px solid var(--logo-border);
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-sub);
+            text-align: center;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        /* 屏幕缩小自适应 */
+        @media (max-width: 992px) {
+            .card { width: calc(50% - 12px); }
+        }
+        @media (max-width: 650px) {
+            .header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 顶部描述与切换按钮 -->
+        <div class="header">
+            <div class="header-info">
+                <h1>山西没有奶龙、也没有奶龙大学</h1>
+                <p>包括所谓奶蛙、奶蛋等一切此类都是棍母，如果有人再提，我便杀了他。</p>
+            </div>
+            <button id="theme-toggle" class="theme-toggle">🌙 切换暗色模式</button>
+        </div>
+
+        <!-- 卡片渲染容器 (由 JS 动态填充) -->
+        <div id="club-grid" class="grid-wrapper"></div>
+    </div>
+
+    <script>
+        // =========================================
+        // 1. JSON 数据配置区
+        // =========================================
+        const clubsData = [
+            {
+                id: 1,
+                name: "山西大学天咫科幻协会",
+                description: "以科幻为载体，融合科技创新与人文想象",
+                logoPlaceholder: "https://q.qlogo.cn/g?b=qq&nk=2152268148&s=640",
+                website: "" // 留空字符串，表示没有网站，不可点击
+            },
+            {
+                id: 2,
+                name: "山西大学开源软件协会",
+                description: "从第一行代码开始，一起学习、分享与创造。",
+                logoPlaceholder: "https://www.sxuosa.top/image/logo.svg",
+                website: "https://sxuosa.top" // 有网站，卡片将可点击
+            },
+            {
+                id: 3,
+                name: "山西大学翎动漫影视协会",
+                description: "二次元爱好者聚集地，包含Cos、原创、Minecraft、前后期等丰富的兴趣小组。",
+                logoPlaceholder: "https://p.qlogo.cn/gh/315460056/315460056/640/",
+                website: "" 
+            }
+        ];
+
+        // =========================================
+        // 2. 动态渲染卡片逻辑
+        // =========================================
+        const gridContainer = document.getElementById('club-grid');
+
+        function renderClubs() {
+            gridContainer.innerHTML = ''; // 清空容器
+            
+            clubsData.forEach(club => {
+                // 创建卡片主元素
+                const card = document.createElement('div');
+                
+                // 核心逻辑：如果有网站，就生成 <a> 标签并设置链接；否则生成普通的 <div>
+                if (club.website && club.website.trim() !== "") {
+                    card.outerHTML = `<a href="${club.website}" target="_blank" class="card">`;
+                    // 重新获取引用，因为 outerHTML 替换后原引用失效，但我们可以用 document 重新选取，或者在生成时直接构造完整 HTML。
+                    // 为了代码更简洁易读，这里采用直接拼接 innerHTML 的方式：
+                } else {
+                    card.className = 'card';
+                }
+
+                // 填充卡片内部 HTML 内容
+                const cardHTML = `
+                    <div class="card-title">${club.name}</div>
+                    <div class="card-logo"><img src="${club.logoPlaceholder}" class="card-logo" alt="${club.name}" style="object-fit: cover;"></div>
+                    <div class="card-desc">${club.description}</div>
+                `;
+                
+                // 如果是有链接的卡片，我们需要特殊处理一下。
+                // 为了保证代码的绝对整洁，我们换一种更优雅的写法，直接拼接整体：
+                let cardHtmlStr = '';
+                if (club.website && club.website.trim() !== "") {
+                    cardHtmlStr = `<a href="${club.website}" target="_blank" class="card">`;
+                } else {
+                    cardHtmlStr = `<div class="card">`;
+                }
+                
+                cardHtmlStr += `
+                    <div class="card-title">${club.name}</div>
+                    <div class="card-logo"><img src="${club.logoPlaceholder}" class="card-logo" alt="${club.name}" style="object-fit: cover;"></div>
+                    <div class="card-desc">${club.description}</div>
+                `;
+                
+                if (club.website && club.website.trim() !== "") {
+                    cardHtmlStr += `</a>`;
+                } else {
+                    cardHtmlStr += `</div>`;
+                }
+                
+                gridContainer.insertAdjacentHTML('beforeend', cardHtmlStr);
+            });
+        }
+
+        // 页面加载完成后渲染
+        renderClubs();
+
+        // =========================================
+        // 3. 明暗主题切换逻辑
+        // =========================================
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // 初始化主题：优先读取本地存储，如果没有则跟随系统设置
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                htmlElement.setAttribute('data-theme', savedTheme);
+                updateButtonText(savedTheme);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                htmlElement.setAttribute('data-theme', 'dark');
+                updateButtonText('dark');
+            } else {
+                htmlElement.setAttribute('data-theme', 'light');
+                updateButtonText('light');
+            }
+        }
+
+        // 更新按钮文字和图标
+        function updateButtonText(currentTheme) {
+            if (currentTheme === 'dark') {
+                themeToggleBtn.textContent = '☀️ 换为亮色';
+            } else {
+                themeToggleBtn.textContent = '🌙 切至暗色';
+            }
+        }
+
+        // 绑定点击事件
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme); // 将用户选择存入本地存储
+            updateButtonText(newTheme);
+        });
+
+        // 执行初始化
+        initTheme();
+    </script>
+</body>
+</html>
