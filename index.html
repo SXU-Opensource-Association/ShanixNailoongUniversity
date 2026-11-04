@@ -1,5 +1,22 @@
+<!--
+Copyright 2026 金羿Eilles
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -92,6 +109,7 @@
             align-items: center;
             box-shadow: var(--shadow);
         }
+
         .theme-toggle:hover {
             opacity: 0.8;
         }
@@ -117,7 +135,8 @@
             align-items: center;
             box-shadow: var(--shadow);
             cursor: pointer;
-            text-decoration: none; /* 去除链接下划线 */
+            text-decoration: none;
+            /* 去除链接下划线 */
         }
 
         .card:hover {
@@ -135,15 +154,22 @@
         .card-logo {
             width: 110px;
             height: 110px;
-            border-radius: 12.46%;
+            border-radius: 0%;
             background-color: var(--logo-bg);
             display: flex;
             justify-content: center;
-            align-items: center;
+            /* align-items: center; */
             color: var(--logo-text);
-            font-size: 14px;
-            margin-bottom: 30px;
+            font-size: 0px;
+            margin-bottom: 20px;
             border: 1px solid var(--logo-border);
+        }
+
+        .card-character {
+            font-size: 14px;
+            color: var(--text-main);
+            text-align: center;
+            flex-grow: 1;
         }
 
         .card-desc {
@@ -154,16 +180,43 @@
             flex-grow: 1;
         }
 
+        .final-link {
+            font-size: 14px;
+            color: var(--text-main);
+            text-align: center;
+            /* margin-bottom: 20px; */
+            position: fixed;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border-radius: 0px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 16px var(--shadow);
+            padding: 11px 20px;
+        }
+
         /* 屏幕缩小自适应 */
         @media (max-width: 992px) {
-            .card { width: calc(50% - 12px); }
+            .card {
+                width: calc(50% - 12px);
+            }
         }
+
         @media (max-width: 650px) {
-            .header { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .card { width: 100%; }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .card {
+                width: 100%;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <div class="container">
@@ -178,6 +231,10 @@
 
         <!-- 卡片渲染容器 (由 JS 动态填充) -->
         <div id="club-grid" class="grid-wrapper"></div>
+
+        <p class="final-link">点击查看<a
+                href="https://github.com/SXU-Opensource-Association/ShanixNailoongUniversity">本页面之代码仓库</a>，可提交表单或推送请求以增设阁下的学生组织。<br>来者请表明身份，不限学校，全山西皆可。
+        </p>
     </div>
 
     <script>
@@ -186,25 +243,52 @@
         // =========================================
         const clubsData = [
             {
-                id: 1,
+                belongSchool: "山西大学",
                 name: "山西大学天咫科幻协会",
-                description: "以科幻为载体，融合科技创新与人文想象",
+                description: "以科幻为载体，融合科技创新与人文想象。",
                 logoPlaceholder: "https://q.qlogo.cn/g?b=qq&nk=2152268148&s=640",
-                website: "" // 留空字符串，表示没有网站，不可点击
+                website: "https://qm.qq.com/q/RBXOdHI402", // 留空字符串，表示没有网站，不可点击
+                character: "学生社团" // 组织性质
             },
             {
-                id: 2,
+                belongSchool: "山西大学",
                 name: "山西大学开源软件协会",
                 description: "从第一行代码开始，一起学习、分享与创造。",
                 logoPlaceholder: "https://www.sxuosa.top/image/logo.svg",
-                website: "https://sxuosa.top" // 有网站，卡片将可点击
+                website: "https://sxuosa.top", // 有网站，卡片将可点击
+                character: "学生社团"
             },
             {
-                id: 3,
+                belongSchool: "山西大学",
                 name: "山西大学翎动漫影视协会",
                 description: "二次元爱好者聚集地，包含Cos、原创、Minecraft、前后期等丰富的兴趣小组。",
                 logoPlaceholder: "https://p.qlogo.cn/gh/315460056/315460056/640/",
-                website: "" 
+                website: "https://space.bilibili.com/291553336",
+                character: "学生社团"
+            },
+            {
+                belongSchool: "山西大学",
+                name: "山西大学计算机与网络技术协会",
+                description: "与最优秀的头脑一起学习、创造和成长，一起探索计算机与网络技术的无限可能。",
+                logoPlaceholder: "https://news.sxu-cnta.cn/assets/cnta-logo-aehPX-Uw.png",
+                website: "https://sxu-cnta.cn/",
+                character: "学生社团"
+            },
+            {
+                belongSchool: "山西大学",
+                name: "山西大学“天行长舟”我的世界同好会",
+                description: "和大家一起，发掘像素世界的乐趣，开创属于自己的一片天地。",
+                logoPlaceholder: "https://p.qlogo.cn/gh/585925749/585925749/0",
+                website: "https://qm.qq.com/q/h2W5jGuyli",
+                character: "社团部门"
+            },
+            {
+                belongSchool: "山西大学",
+                name: "山西大学天文协会",
+                description: "普及天文知识、提高科学文化素质、活跃校园生活",
+                logoPlaceholder: "https://bkimg.cdn.bcebos.com/pic/42a98226cffc1e178a822f5d18d9e103738da977430f",
+                website: "https://space.bilibili.com/471757216",
+                character: "学生社团"
             }
         ];
 
@@ -215,11 +299,11 @@
 
         function renderClubs() {
             gridContainer.innerHTML = ''; // 清空容器
-            
+
             clubsData.forEach(club => {
                 // 创建卡片主元素
                 const card = document.createElement('div');
-                
+
                 // 核心逻辑：如果有网站，就生成 <a> 标签并设置链接；否则生成普通的 <div>
                 if (club.website && club.website.trim() !== "") {
                     card.outerHTML = `<a href="${club.website}" target="_blank" class="card">`;
@@ -229,13 +313,13 @@
                     card.className = 'card';
                 }
 
-                // 填充卡片内部 HTML 内容
-                const cardHTML = `
-                    <div class="card-title">${club.name}</div>
-                    <div class="card-logo"><img src="${club.logoPlaceholder}" class="card-logo" alt="${club.name}" style="object-fit: cover;"></div>
-                    <div class="card-desc">${club.description}</div>
-                `;
-                
+                // // 填充卡片内部 HTML 内容
+                // const cardHTML = `
+                //     <div class="card-title">${club.name}</div>
+                //     <div class="card-logo"><img src="${club.logoPlaceholder}" class="card-logo" alt="${club.name}" style="object-fit: cover;"></div>
+                //     <div class="card-desc">${club.description}</div>
+                // `;
+
                 // 如果是有链接的卡片，我们需要特殊处理一下。
                 // 为了保证代码的绝对整洁，我们换一种更优雅的写法，直接拼接整体：
                 let cardHtmlStr = '';
@@ -244,19 +328,20 @@
                 } else {
                     cardHtmlStr = `<div class="card">`;
                 }
-                
+
                 cardHtmlStr += `
                     <div class="card-title">${club.name}</div>
                     <div class="card-logo"><img src="${club.logoPlaceholder}" class="card-logo" alt="${club.name}" style="object-fit: cover;"></div>
+                    <div class="card-character">【${club.character}】</div>
                     <div class="card-desc">${club.description}</div>
                 `;
-                
+
                 if (club.website && club.website.trim() !== "") {
                     cardHtmlStr += `</a>`;
                 } else {
                     cardHtmlStr += `</div>`;
                 }
-                
+
                 gridContainer.insertAdjacentHTML('beforeend', cardHtmlStr);
             });
         }
@@ -298,7 +383,7 @@
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = htmlElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme); // 将用户选择存入本地存储
             updateButtonText(newTheme);
@@ -308,4 +393,5 @@
         initTheme();
     </script>
 </body>
+
 </html>
