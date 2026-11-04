@@ -8,9 +8,9 @@
 
 ### 信息提交方式
 
-1. 在[仓库表单](github.com/SXU-Opensource-Association/ShanixNailoongUniversity/issues)中提交你的信息。
+1. 在[仓库表单](https://github.com/SXU-Opensource-Association/ShanixNailoongUniversity/pulls)中提交你的信息。
 
-2. 拉取本仓库，直接在 `index.html` 里的 `clubsData` 中添加你的组织信息，后提交[推送请求](github.com/SXU-Opensource-Association/ShanixNailoongUniversity/pulls)。
+2. 拉取本仓库，直接在 `index.html` 里的 `clubsData` 中添加你的组织信息，后提交[推送请求](https://github.com/SXU-Opensource-Association/ShanixNailoongUniversity/pulls)。
 
 ### 信息提交内容
 
